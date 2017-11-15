@@ -1,0 +1,11 @@
+{:source-paths
+ ["src"]
+ :dependencies
+ []
+ :builds
+ {:app {
+   :target :node-script
+   :output-dir "target"
+   :output-to "onto-server.js"
+   :main onto.server/main
+ }}}
