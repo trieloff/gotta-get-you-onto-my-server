@@ -4,9 +4,11 @@
   "description": "Provision virtual servers, the serverless way",
   "main": "onto-server.js",
   "dependencies": {
-    "shadow-cljs": "^2.0.77"
+    "bluebird": "^3.5.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "shadow-cljs": "^2.0.89"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "shadow-cljs compile app"
