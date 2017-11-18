@@ -12,7 +12,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "shadow-cljs compile app",
-    "watch": "shadow-cljs watch app"
+    "watch": "shadow-cljs watch app",
+    "repl": "shadow-cljs cljs-repl app"
   },
   "repository": {
     "type": "git",
