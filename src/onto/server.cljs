@@ -54,10 +54,25 @@
                                       :size "4gb"
                                       :image snapshot
                                       :backups false
+                                      :tags ["devbox"]
                                       :ipv6 false}}))
             (fn [resp]
               (js->clj (.parse js/JSON (:body resp)) :keywordize-keys true))))
 
+(defn list-droplets [token]
+  (p/then (http/get client "https://api.digitalocean.com/v2/droplets"
+                        {:headers {"Content-Type" "application/json"
+                                          "Authorization" (str "Bearer" " " token)}})
+              (fn [resp]
+                (:droplets (js->clj (.parse js/JSON (:body resp)) :keywordize-keys true)))))
+
+(defn kill-droplets [token tag]
+  (p/then (http/delete client "https://api.digitalocean.com/v2/droplets"
+                        { :headers {"Content-Type" "application/json"
+                                          "Authorization" (str "Bearer" " " token)}
+                          :query-params {:tag_name tag}})
+              (fn [resp]
+                (:status resp))))
 
 (defn set-a-record [token domain address id]
   (println "setting A record for " domain " to " address)
@@ -77,5 +92,13 @@
       (p/then #(set-a-record token domain nil (:id (:droplet %))))
       (p/then #(.exit js/process))))
 
-(defn main [args]
-  (start-devbox args "1.do.99productrules.com"))
+(defn clear-devbox [token]
+  (println "I'm cleaning up " token)
+  (-> (kill-droplets token "devbox")
+      (p/then println)
+      (p/then #(.exit js/process))))
+
+(defn main [token domain]
+  (if (nil? domain)
+    (clear-devbox token)
+    (start-devbox token domain)))
