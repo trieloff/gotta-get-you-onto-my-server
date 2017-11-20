@@ -36,8 +36,6 @@
                         {:headers { "Content-Type" "application/json"
                                     "Authorization" (str "Bearer" " " token)}})
                (fn [resp]
-                 (println "Got an IP")
-                 (println (:droplet (js->clj (.parse js/JSON (:body resp)) :keywordize-keys true)))
                  (:ip_address (first (:v4 (:networks (:droplet (js->clj (.parse js/JSON (:body resp)) :keywordize-keys true))))))))
        (p/catch (fn [err]
                   (println err)
@@ -71,13 +69,13 @@
                                 (encode { :headers {  "Content-Type" "application/json"
                                                       "Authorization" (str "Bearer" " " token)}
                                           :body  {:data address}})))
-      (p/then println))))
+      (p/then #(println "Successfully set IP to " address)))))
+
+(defn start-devbox [token domain]
+  (-> (get-snapshots token)
+      (p/then #(new-droplet token (:id (last %1))))
+      (p/then #(set-a-record token domain nil (:id (:droplet %))))
+      (p/then #(.exit js/process))))
 
 (defn main [args]
-  (println "hello" args)
-  ;(-> (get-a-record args "1.do.99productrules.com")
-  ;    (p/then println))
-  (-> (get-snapshots args)
-      (p/then #(new-droplet args (:id (first %1))))
-      (p/then #(set-a-record args "1.do.99productrules.com" nil (:id (:droplet %))))
-      (p/then #(.exit js/process))))
+  (start-devbox args "1.do.99productrules.com"))
