@@ -30,6 +30,19 @@
        (p/catch (fn [err]
                   (println err)
                   (identity nil)))))
+
+(defn get-ip [token id]
+  (-> (p/then (http/get client (str "https://api.digitalocean.com/v2/droplets/" id)
+                        {:headers { "Content-Type" "application/json"
+                                    "Authorization" (str "Bearer" " " token)}})
+               (fn [resp]
+                 (println "Got an IP")
+                 (println (:droplet (js->clj (.parse js/JSON (:body resp)) :keywordize-keys true)))
+                 (:ip_address (first (:v4 (:networks (:droplet (js->clj (.parse js/JSON (:body resp)) :keywordize-keys true))))))))
+       (p/catch (fn [err]
+                  (println err)
+                  (identity nil)))))
+
 (defn encode
   [request]
   (update request :body #(js/JSON.stringify (clj->js %))))
@@ -47,10 +60,22 @@
             (fn [resp]
               (js->clj (.parse js/JSON (:body resp)) :keywordize-keys true))))
 
+
+(defn set-a-record [token domain address]
+  (println "setting A record for " domain " to " address)
+  (-> (get-a-record token domain)
+      (p/then #(http/put client (str "https://api.digitalocean.com/v2/domains/" domain "/records/" (:id %))
+                     (encode {:headers {"Content-Type" "application/json"
+                                        "Authorization" (str "Bearer" " " token)}
+                              :body  {:data address}})))
+      (p/then println)))
+
 (defn main [args]
   (println "hello" args)
-  (-> (get-a-record args "1.do.99productrules.com")
-      (p/then println))
+  ;(-> (get-a-record args "1.do.99productrules.com")
+  ;    (p/then println))
   (-> (get-snapshots args)
-      ;(p/then #(new-droplet args (:id (first %1))))
-      (p/then println)))
+      (p/then #(new-droplet args (:id (first %1))))
+      (p/then (fn [droplet]
+        (-> (p/delay 10000 (get-ip args (:id (:droplet droplet))))
+            (p/then #(set-a-record args "1.do.99productrules.com" %)))))))
