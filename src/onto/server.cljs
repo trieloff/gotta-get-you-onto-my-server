@@ -53,7 +53,7 @@
                                         "Authorization" (str "Bearer" " " token)}
                               :body  {:name "1.do.99productrules.com",
                                       :region "fra1"
-                                      :size "512mb"
+                                      :size "4gb"
                                       :image snapshot
                                       :backups false
                                       :ipv6 false}}))
@@ -61,14 +61,17 @@
               (js->clj (.parse js/JSON (:body resp)) :keywordize-keys true))))
 
 
-(defn set-a-record [token domain address]
+(defn set-a-record [token domain address id]
   (println "setting A record for " domain " to " address)
-  (-> (get-a-record token domain)
+  (if (nil? address)
+    (-> (get-ip token id)
+        (p/then #(set-a-record token domain % id)))
+    (-> (get-a-record token domain)
       (p/then #(http/put client (str "https://api.digitalocean.com/v2/domains/" domain "/records/" (:id %))
-                     (encode {:headers {"Content-Type" "application/json"
-                                        "Authorization" (str "Bearer" " " token)}
-                              :body  {:data address}})))
-      (p/then println)))
+                                (encode { :headers {  "Content-Type" "application/json"
+                                                      "Authorization" (str "Bearer" " " token)}
+                                          :body  {:data address}})))
+      (p/then println))))
 
 (defn main [args]
   (println "hello" args)
@@ -76,6 +79,5 @@
   ;    (p/then println))
   (-> (get-snapshots args)
       (p/then #(new-droplet args (:id (first %1))))
-      (p/then (fn [droplet]
-        (-> (p/delay 10000 (get-ip args (:id (:droplet droplet))))
-            (p/then #(set-a-record args "1.do.99productrules.com" %)))))))
+      (p/then #(set-a-record args "1.do.99productrules.com" nil (:id (:droplet %))))
+      (p/then #(.exit js/process))))
