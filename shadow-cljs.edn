@@ -7,4 +7,5 @@
           :main onto.server/main }
     :lib {:target :node-library
           :output-to "target/lib/onto.js"
+          :compiler-options {:closure-output-charset "US-ASCII"}
           :exports {:main onto.server/main}}}}
