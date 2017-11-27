@@ -98,11 +98,16 @@
       (p/then println)
       (p/then #(.exit js/process))))
 
-(defn provision [token domain]
+(defn provision [args]
+  (let [token (:token (js->clj args :keywordize-keys true))
+        domain (:domain (js->clj args :keywordize-keys true))]
+    (start-devbox token domain)))
+
+(defn deprovision [args]
+  (let [token (:token (js->clj args :keywordize-keys true))]
+    (clear-devbox token)))
+
+(defn main [token domain]
   (if (nil? domain)
     (clear-devbox token)
     (start-devbox token domain)))
-
-(defn main [args]
-  (println (clj->js {:hey "ho", :args (js->clj args)}))
-  (clj->js {:hey "ho", :args (js->clj args)}))
