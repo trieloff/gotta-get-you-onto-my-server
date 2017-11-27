@@ -7,14 +7,16 @@
     "bluebird": "^3.5.1"
   },
   "devDependencies": {
-    "shadow-cljs": "^2.0.90"
+    "shadow-cljs": "^2.0.90",
+    "deploy-to-git": "^0.1.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "shadow-cljs compile app",
     "release": "shadow-cljs release lib",
     "watch": "shadow-cljs watch app",
-    "repl": "shadow-cljs node-repl app"
+    "repl": "shadow-cljs node-repl app",
+    "deploy": "deploy-to-git"
   },
   "repository": {
     "type": "git",
@@ -25,5 +27,18 @@
   "bugs": {
     "url": "https://github.com/trieloff/gotta-get-you-onto-my-server/issues"
   },
-  "homepage": "https://github.com/trieloff/gotta-get-you-onto-my-server#readme"
+  "homepage": "https://github.com/trieloff/gotta-get-you-onto-my-server#readme",
+  "config": {
+    "deployToGit": {
+      "repository": "git@github.com:trieloff/gotta-get-you-onto-my-server.git",
+      "branch": "master",
+      "folder": "build",
+      "script": "npm run release",
+      "commit": "[ci skip] deploy build #$CIRCLE_BUILD_NUM to Adobe I/O Runtime",
+      "user": {
+        "email": "lars@trieloff.net",
+        "name": "Lars Trieloff"
+      }
+    }
+  }
 }

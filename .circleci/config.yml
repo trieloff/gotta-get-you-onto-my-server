@@ -21,4 +21,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # compile
-      - run: npm run release
+      - run: npm compile
+
+      # deploy
+      - run: npm run deploy
