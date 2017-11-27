@@ -14,15 +14,15 @@ jobs:
           - v1-dependencies-
 
       - run: npm install
-
+        
+      # compile
+      - run: npm run compile
+      
       - save_cache:
           paths:
             - node_modules
             - ~/.m2/repository
           key: v1-dependencies-{{ checksum "package.json" }}
-        
-      # compile
-      - run: npm run compile
 
       # deploy
       - run: npm run deploy
