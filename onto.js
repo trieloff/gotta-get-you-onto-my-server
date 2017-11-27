@@ -2239,4 +2239,4 @@ function(){return process.exit()})};onto.server.clear_devbox=function(a){cljs.co
 
     return shadow.umd_helper.get_exports();
 });
-var main = exports.main;
+var main = onto.server.main;
