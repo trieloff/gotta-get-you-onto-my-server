@@ -13,7 +13,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "shadow-cljs compile app",
-    "release": "shadow-cljs release lib && echo 'main = module.exports.main;' >> ./build/onto.js",
+    "release": "shadow-cljs release lib && sh wrap.sh onto.js provision deprovision",
     "watch": "shadow-cljs watch app",
     "repl": "shadow-cljs node-repl app",
     "deploy": "deploy-to-git"
