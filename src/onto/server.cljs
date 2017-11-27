@@ -98,7 +98,10 @@
       (p/then println)
       (p/then #(.exit js/process))))
 
-(defn main [token domain]
+(defn provision [token domain]
   (if (nil? domain)
     (clear-devbox token)
     (start-devbox token domain)))
+
+(defn main [args]
+  ({:hey "ho"}))
