@@ -1,0 +1,9 @@
+package:
+  name: gotta-get-you-onto-my-server
+  version: 1
+  license: Apache-2.0
+  actions:
+    provision:
+      version: 1
+      location: onto.js
+      runtime: nodejs@6
