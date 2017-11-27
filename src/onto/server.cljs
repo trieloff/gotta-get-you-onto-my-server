@@ -104,4 +104,5 @@
     (start-devbox token domain)))
 
 (defn main [args]
-  ({:hey "ho"}))
+  (println (clj->js {:hey "ho", :args (js->clj args)}))
+  (clj->js {:hey "ho", :args (js->clj args)}))
