@@ -1,8 +1,4 @@
-/*
-function main(args) {
-  console.log("someone called main");
-  return 
-  */(function (root, factory) {
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         define([], factory);
     } else if (typeof module === 'object' && module.exports) {
@@ -2243,4 +2239,4 @@ function(){return process.exit()})};onto.server.clear_devbox=function(a){cljs.co
 
     return shadow.umd_helper.get_exports();
 });
-main = console.log(require("./onto").main);
+main = module.exports.main;
