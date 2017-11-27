@@ -3,7 +3,11 @@ package:
   version: 1
   license: Apache-2.0
   actions:
+    deprovision:
+      version: 1
+      location: deprovision.js
+      runtime: nodejs@6
     provision:
       version: 1
-      location: onto.js
+      location: provision.js
       runtime: nodejs@6
