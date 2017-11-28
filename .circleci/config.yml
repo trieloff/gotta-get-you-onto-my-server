@@ -27,5 +27,9 @@ jobs:
       # build (prod)
       - run: npm run release
 
+      # configure
+      - run: npm config set wsk_host $WSK_HOST
+      - run: npm config set wsk_key $WSK_KEY
+
       # package
       - run: npm run package      
