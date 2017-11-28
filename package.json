@@ -17,7 +17,7 @@
     "package": "npm ls --prod --parseable | grep node_modules | sed -e 's/.*node_modules/node_modules/' | xargs zip onto.zip -r onto.js package.json",
     "watch": "shadow-cljs watch app",
     "repl": "shadow-cljs node-repl app",
-    "deploy": "wsk --apihost $npm_package_config_wsk_host --auth $npm_package_config_wsk_key action update onto-server onto.zip --kind nodejs:6"
+    "deploy": "wsk --apihost $npm_package_config_wsk_host --auth $npm_package_config_wsk_key action update onto-server onto.zip --kind nodejs:6 --web true"
   },
   "repository": {
     "type": "git",
