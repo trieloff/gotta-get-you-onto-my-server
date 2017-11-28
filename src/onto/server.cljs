@@ -107,14 +107,23 @@
   (let [token (:token (js->clj args :keywordize-keys true))]
     (clear-devbox token)))
 
+(defn echo [args]
+  args)
+
 (defn main [args]
-  (let [params (js->clj args :keywordize-keys true)
-        domain (:domain params)
-        token  (:token  params)
-        action (:action params)]
-    (clj->js {:action action
-              :token  token
-              :domain domain})))
+  (clj->js 
+    (let [params (js->clj args :keywordize-keys true)
+          domain (:domain       params)
+          token  (:token        params)
+          method (:__ow_method  params)
+          action (:action params)]
+      (case action
+        "provision" {:action "p"}
+        "deprovision" {:action "d"}
+        {:action action
+        :token  token
+        :method method
+        :domain domain}))))
 
 (defn old [token domain]
   (if (nil? domain)
