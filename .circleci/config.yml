@@ -32,4 +32,7 @@ jobs:
       - run: npm config set wsk_key $WSK_KEY
 
       # package
-      - run: npm run package      
+      - run: npm run package    
+
+      # deploy
+      - run: npm run deploy  
