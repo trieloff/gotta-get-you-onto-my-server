@@ -108,7 +108,13 @@
     (clear-devbox token)))
 
 (defn main [args]
-  (identity args))
+  (let [params (js->clj args :keywordize-keys true)
+        domain (:domain params)
+        token  (:token  params)
+        action (:action params)]
+    (clj->js {:action action
+              :token  token
+              :domain domain})))
 
 (defn old [token domain]
   (if (nil? domain)
