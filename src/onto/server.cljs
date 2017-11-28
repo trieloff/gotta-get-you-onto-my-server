@@ -117,13 +117,16 @@
           token  (:token        params)
           method (:__ow_method  params)
           action (:action params)]
-      (case action
-        "provision" {:action "p"}
-        "deprovision" {:action "d"}
-        {:action action
-        :token  token
-        :method method
-        :domain domain}))))
+        (case method
+          "get" {:status "only post allowed"}
+          "post" (case action
+                    "provision" {:action "p"}
+                    "deprovision" {:action "d"}
+                    { :action action
+                      :token  token
+                      :method method
+                      :domain domain})
+          {:status "this should never happen"}))))
 
 (defn old [token domain]
   (if (nil? domain)
