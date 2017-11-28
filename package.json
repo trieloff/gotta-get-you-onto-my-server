@@ -1,0 +1,47 @@
+{
+  "name": "gotta-get-you-onto-my-server",
+  "version": "1.0.0",
+  "description": "Provision virtual servers, the serverless way",
+  "dependencies": {
+    "bluebird": "^3.5.1"
+  },
+  "devDependencies": {
+    "shadow-cljs": "^2.0.90",
+    "deploy-to-git": "^0.1.4"
+  },
+  "main": "onto.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "shadow-cljs compile app",
+    "release": "shadow-cljs release lib",
+    "package": "npm ls --prod --parseable | grep node_modules | sed -e 's/.*node_modules/node_modules/' | xargs zip onto.zip -r onto.js package.json",
+    "watch": "shadow-cljs watch app",
+    "repl": "shadow-cljs node-repl app",
+    "deploy": "wsk --apihost $npm_package_config_wsk_host --auth $npm_package_config_wsk_key action update onto-server onto.zip --kind nodejs:6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trieloff/gotta-get-you-onto-my-server.git"
+  },
+  "author": "Lars Trieloff",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/trieloff/gotta-get-you-onto-my-server/issues"
+  },
+  "homepage": "https://github.com/trieloff/gotta-get-you-onto-my-server#readme",
+  "config": {
+    "wsk_host": "runtime-preview.adobe.io",
+    "wsk_key": "NOPE",
+    "deployToGit": {
+      "repository": "git@github.com:trieloff/gotta-get-you-onto-my-server.git",
+      "branch": "master",
+      "folder": "build",
+      "script": "npm run release",
+      "commit": "[ci skip] deploy build #$CIRCLE_BUILD_NUM to Adobe I/O Runtime",
+      "user": {
+        "email": "lars@trieloff.net",
+        "name": "Lars Trieloff"
+      }
+    }
+  }
+}
