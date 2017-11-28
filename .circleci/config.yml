@@ -24,5 +24,8 @@ jobs:
             - ~/.m2/repository
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # deploy
-      - run: npm run deploy
+      # build (prod)
+      - run: npm run release
+
+      # package
+      - run: npm run package      
