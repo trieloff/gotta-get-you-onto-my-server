@@ -15,7 +15,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "shadow-cljs compile app",
     "release": "shadow-cljs release lib",
-    "package": "npm ls --prod --parseable | grep node_modules | sed -e 's/.*node_modules/node_modules/' | xargs zip onto.zip -r onto.js package.json"
+    "package": "npm ls --prod --parseable | grep node_modules | sed -e 's/.*node_modules/node_modules/' | xargs zip onto.zip -r onto.js package.json",
     "watch": "shadow-cljs watch app",
     "repl": "shadow-cljs node-repl app",
     "deploy": "deploy-to-git"
