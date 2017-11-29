@@ -5,7 +5,11 @@
           :output-dir "target"
           :output-to "onto-server.js"
           :main onto.server/main }
-    :lib {:target :node-library
-          :output-to "onto.js"
+    :deprovision {:target :node-library
+          :output-to "deprovision.js"
           :compiler-options {:closure-output-charset "US-ASCII"}
-          :exports {:main onto.server/main}}}}
+          :exports {:main onto.server/deprovision}}
+    :provision {:target :node-library
+          :output-to "provision.js"
+          :compiler-options {:closure-output-charset "US-ASCII"}
+          :exports {:main onto.server/provision}}}}
