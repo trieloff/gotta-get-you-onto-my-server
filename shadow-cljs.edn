@@ -3,7 +3,7 @@
   :builds {
       :app {:target :node-script
           :output-dir "target"
-          :output-to "onto-server.js"
+          :output-to "target/onto-server.js"
           :main onto.server/main }
       :deprovision {:target :node-library
           :output-to "deprovision.js"
