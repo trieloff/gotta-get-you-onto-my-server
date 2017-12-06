@@ -35,4 +35,9 @@ jobs:
       - run: npm run package    
 
       # deploy
-      - run: npm run deploy  
+      - run: 
+          command: npm run deploy
+          name: Publish Action
+          filters:
+            branches:
+              only: master
