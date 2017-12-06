@@ -14,7 +14,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "shadow-cljs compile app",
-    "release": "shadow-cljs release provision deprovision",
+    "release": "shadow-cljs release provision deprovision echo",
     "package": "node build/package.js",
     "watch": "shadow-cljs watch app",
     "repl": "shadow-cljs node-repl app",
