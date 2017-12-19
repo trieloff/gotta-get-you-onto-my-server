@@ -1,6 +1,6 @@
 { :source-paths ["src"]
   :dependencies [[funcool/httpurr "1.0.0"]
-                 [trieloff/clojurescript-openwhisk "0.1.0"]]
+                 [trieloff/clojurescript-openwhisk "0.1.1"]]
   :builds {
       :app {:target :node-script
           :output-dir "target"
