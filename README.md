@@ -1,4 +1,7 @@
 # gotta-get-you-onto-my-server
+
+[![CircleCI](https://circleci.com/gh/trieloff/gotta-get-you-onto-my-server.svg?style=svg)](https://circleci.com/gh/trieloff/gotta-get-you-onto-my-server)
+
 Provision virtual servers, the serverless way
 
 ## Building
