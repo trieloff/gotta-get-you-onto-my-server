@@ -90,13 +90,12 @@
   (-> (get-snapshots token)
       (p/then #(new-droplet token (:id (last %1))))
       (p/then #(set-a-record token domain nil (:id (:droplet %))))
-      (p/then #(.exit js/process))))
+      (p/then identity)))
 
 (defn clear-devbox [token]
   (println "I'm cleaning up " token)
   (-> (kill-droplets token "devbox")
-      (p/then println)
-      (p/then #(.exit js/process))))
+      (p/then identity)))
 
 (defn provision [args]
   (let [token (:token (js->clj args :keywordize-keys true))
