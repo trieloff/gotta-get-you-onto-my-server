@@ -8,13 +8,16 @@
           :main onto.server/main }
       :deprovision {:target :node-library
           :output-to "deprovision.js"
+          :output-dir "target"
           :compiler-options {:closure-output-charset "US-ASCII"}
           :exports {:main onto.server/deprovision}}
       :echo {:target :node-library
           :output-to "echo.js"
+          :output-dir "target"
           :compiler-options {:closure-output-charset "US-ASCII"}
           :exports {:main onto.server/echo}}
       :provision {:target :node-library
           :output-to "provision.js"
+          :output-dir "target"
           :compiler-options {:closure-output-charset "US-ASCII"}
           :exports {:main onto.server/provision}}}}
