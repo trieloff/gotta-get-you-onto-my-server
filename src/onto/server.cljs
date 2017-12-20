@@ -2,7 +2,8 @@
   (:require-macros [openwhisk.wrap :as w])
   (:require [httpurr.client :as http]
             [promesa.core :as p]
-            [openwhisk.wrap :as o]
+            [openwhisk.wrap :as o
+                            :refer-macros [defnw]]
             [httpurr.client.node :refer [client]]))
 
 (defn get-domain-records [token domain]
@@ -111,7 +112,7 @@
 (defn echo- [args]
   {:echo (assoc args :key "value")})
 
-(w/defnw echo [args]
+(defnw echo [args]
   {:echo (assoc args :key "value")})
 
 ;(w/defw echo echo-)
