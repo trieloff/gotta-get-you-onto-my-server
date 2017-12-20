@@ -1,6 +1,8 @@
 (ns onto.server
+  (:require-macros [onto.macros :as w])
   (:require [httpurr.client :as http]
             [promesa.core :as p]
+            [openwhisk.wrap :as o]
             [httpurr.client.node :refer [client]]))
 
 (defn get-domain-records [token domain]
@@ -106,8 +108,14 @@
   (let [token (:token (js->clj args :keywordize-keys true))]
     (clear-devbox token)))
 
-(defn echo [args]
-  args)
+(defn echo- [args]
+  {:echo (assoc args :key "value")})
+
+(w/defnw echo [args]
+  {:echo (assoc args :key "value")})
+
+;(w/defw echo echo-)
+
 
 (defn main [args]
   (clj->js 
