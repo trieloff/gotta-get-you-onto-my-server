@@ -1,5 +1,5 @@
 (ns onto.server
-  (:require-macros [onto.macros :as w])
+  (:require-macros [openwhisk.wrap :as w])
   (:require [httpurr.client :as http]
             [promesa.core :as p]
             [openwhisk.wrap :as o]
