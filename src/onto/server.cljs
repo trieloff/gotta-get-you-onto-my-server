@@ -112,10 +112,9 @@
 (defn echo- [args]
   {:echo (assoc args :key "value")})
 
-(defaction echo [args]
+(defweb echo [args]
+  {"X-Test" true}
   {:echo (assoc args :key "value")})
-
-;(w/defw echo echo-)
 
 
 (defn main [args]
